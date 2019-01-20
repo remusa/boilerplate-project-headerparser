@@ -25,14 +25,16 @@ app.get('/api/hello', function(req, res) {
 
 // get IP address API endpoint
 app.get('/api/whoami', (req, res) => {
-      const ip = req.ip
-      const language = req.header('Accept-Language')
-      const software = req.header('User-Agent')
+      const ip = req.connection.remoteAddress
+    // const ip = req.headers['x-forwarded-for']
+      //   const ip = req.ip
+      const language = req.header('accept-language')
+      const software = req.header('user-agent')
 
       const obj = {
-        ipaddress: `${ip}`,
+            ipaddress: `${ip}`,
             language: `${language}`,
-        software: `${software}`,
+            software: `${software}`,
       }
 
       res.json(obj)
