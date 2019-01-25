@@ -14,34 +14,34 @@ app.use(cors({ optionSuccessStatus: 200 })) // some legacy browsers choke on 204
 app.use(express.static('public'))
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 })
 
 // your first API endpoint...
-app.get('/api/hello', function(req, res) {
-      res.json({ greeting: 'hello API' })
+app.get('/api/hello', (req, res) => {
+    res.json({ greeting: 'hello API' })
 })
 
 // get IP address API endpoint
 app.get('/api/whoami', (req, res) => {
-      // const ip = req.connection.remoteAddress
+    // const ip = req.connection.remoteAddress
     const ip = req.headers['x-forwarded-for']
-      //   const ip = req.ip
-      const language = req.header('accept-language')
-      const software = req.header('user-agent')
+    //   const ip = req.ip
+    const language = req.header('accept-language')
+    const software = req.header('user-agent')
 
-      const obj = {
-            ipaddress: `${ip}`,
-            language: `${language}`,
-            software: `${software}`,
-      }
+    const obj = {
+        ipaddress: `${ip}`,
+        language: `${language}`,
+        software: `${software}`,
+    }
 
-      res.json(obj)
+    res.json(obj)
 })
 
 // listen for requests :)
 const PORT = process.env.PORT || 3000
 const listener = app.listen(PORT, () => {
-      console.log('Your app is listening on port ' + listener.address().port)
+    console.log('Your app is listening on port ' + listener.address().port)
 })
